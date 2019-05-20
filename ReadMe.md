@@ -1,3 +1,3 @@
-Задача The Greatest Number
-Вывести наибольшее число
+Р—Р°РґР°С‡Р° The Greatest Number
+
 https://www.codingame.com/ide/puzzle/the-greatest-number
