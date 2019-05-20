@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Globalization;
 namespace tryinggreatestnumber
 {
 
@@ -14,44 +14,19 @@ namespace tryinggreatestnumber
             int N = int.Parse(Console.ReadLine());
             string nums = Console.ReadLine();
             string result = "";
-            string extractedNumers = ExtractNumbers(nums);
+            string extractedNumers = String.Concat(nums.Where(n => Char.IsDigit(n)));
 
-            result = nums.Contains('-') 
-                ? String.Concat(extractedNumers.OrderBy(s => s)) 
+            result = nums.Contains('-')
+                ? '-' + String.Concat(extractedNumers.OrderBy(s => s))
                 : String.Concat(extractedNumers.OrderByDescending(s => s));
-            
+
             if (nums.Contains('.'))
             {
-                if (result.Contains('-'))
-                {
-                    result = result.Insert(2, ".");
-                }
-                else
-                {
-                    if (!result.Contains("0"))
-                    {
+                result = nums.Contains('-') ? result.Insert(2, ".") : result.Insert(result.Length - 1, ".");
 
-                        result = result.Insert(result.Length - 1, ".");
-                    }
-                }
             }
-
-
-            Console.WriteLine(double.Parse(result.Replace(".", ",")));
-        }
-
-        static string ExtractNumbers(string str)
-        {
-            string result = "";
-            string numres = "1234567890";
-            for (int i = 0; i < str.Length; i++)
-            {
-                if (numres.Contains(str[i]))
-                {
-                    result += str[i];
-                }
-            }
-            return result;
+            CultureInfo culture = CultureInfo.InvariantCulture;
+            Console.WriteLine(double.Parse(result, culture.NumberFormat));
         }
     }
 }
